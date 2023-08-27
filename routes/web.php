@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\authorController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,19 @@ Route::get('/home', function () {
 // Route middleware auth digunakan untuk mengakses halaman apabila user dalam keadaan login
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [adminController::class, 'index'])->middleware('userAkses:admin');
-    Route::get('/author', [adminController::class, 'author'])->middleware('userAkses:author');
+
+    Route::get('/author', [authorController::class, 'index'])->middleware('userAkses:author');
+    Route::get('/infoakun', [authorController::class, 'infoakun'])->middleware('userAkses:author');
+    Route::get('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
+    // Route::resource('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
+    Route::get('/pengaturan', [authorController::class, 'pengaturan'])->middleware('userAkses:author');
+
+    Route::get('/panduan-menulis', [authorController::class, 'panduan_menulis'])->middleware('userAkses:author');
+    Route::get('/menulis', [authorController::class, 'menulis'])->middleware('userAkses:author');
+    Route::post('/kirimtulisan', [authorController::class, 'kirimtulisan'])->middleware('userAkses:author');
+    Route::get('/draft', [authorController::class, 'draft'])->middleware('userAkses:author');
+    Route::get('/status', [authorController::class, 'status'])->middleware('userAkses:author');
+    Route::get('/pointku', [authorController::class, 'pointku'])->middleware('userAkses:author');
+
     Route::get('/logout', [SesiController::class, 'logout']);
 });

@@ -12,8 +12,4 @@ class adminController extends Controller
         return view('admin');
     }
 
-    function author()
-    {
-        return view('author');
-    }
 }

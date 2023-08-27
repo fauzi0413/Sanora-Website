@@ -43,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">@error('email')
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">@error('password')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                         Password wajib diisi!
                     </div>                

@@ -11,7 +11,7 @@
 <body>
     @include('layouts.navbar')
     <div class="container py-5">
-        <div class="w-lg-50 center border rounded px-3 py-3 mx-auto">
+        <div class="w-50 center border rounded px-3 py-3 mx-auto">
             <h1>Register</h1>
             @if ($errors->any())
                 <div class="alert alert-danger">
