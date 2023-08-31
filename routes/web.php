@@ -42,8 +42,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pengaturan', [authorController::class, 'pengaturan'])->middleware('userAkses:author');
 
     Route::get('/panduan-menulis', [authorController::class, 'panduan_menulis'])->middleware('userAkses:author');
+
     Route::get('/menulis', [authorController::class, 'menulis'])->middleware('userAkses:author');
     Route::post('/kirimtulisan', [authorController::class, 'kirimtulisan'])->middleware('userAkses:author');
+    Route::get('/ubahtulisan/{id}', [authorController::class, 'ubah_tulisan'])->middleware('userAkses:author');
+    Route::post('/edittulisan/{id}', [authorController::class, 'edittulisan'])->middleware('userAkses:author');
+    Route::get('/hapustulisan/{id}', [authorController::class, 'hapustulisan'])->middleware('userAkses:author');
+
     Route::get('/draft', [authorController::class, 'draft'])->middleware('userAkses:author');
     Route::get('/status', [authorController::class, 'status'])->middleware('userAkses:author');
     Route::get('/pointku', [authorController::class, 'pointku'])->middleware('userAkses:author');
