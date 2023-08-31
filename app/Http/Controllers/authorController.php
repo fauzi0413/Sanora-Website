@@ -121,15 +121,15 @@ class authorController extends Controller
                     $data = artikel::find($id);
 
                     $image = $request->file('gambar');
-                    $imageName = $image->hashName() . $image->extension();
-                    Storage::put('/app/public/posts/' . $imageName, $image);
+                    $imageName = $image->hashName();
+                    $image->storeAs('public/posts', $imageName);
 
-                    Storage::delete('./posts/' . $data->gambar_artikel);
+                    Storage::delete('/public/posts/', $data->gambar_artikel);
 
                     $data->update([
                         'judul' => $request->judul,
                         'cuplikan' => $request->cuplikan,
-                        'gambar_artikel' => $image->hashName(),
+                        'gambar_artikel' => $imageName,
                         'isi_artikel' => $request->isi,
                         // 'status_artikel' => 'Disimpan',
                     ]);
