@@ -61,8 +61,6 @@ class authorController extends Controller
         );
 
         //upload image
-        // $image = $request->file('gambar');
-        // $image->storeAs('public/posts', $image->hashName());
         $image = $request->file('gambar');
         $imageName = $image->hashName();
         $image->storeAs('public/posts', $imageName);
@@ -118,13 +116,13 @@ class authorController extends Controller
         switch ($request->input('submit')) {
             case 'simpan':
                 if ($request->hasFile('gambar')) {
-                    $data = artikel::find($id);
+                    $data = artikel::findOrFail($id);
 
                     $image = $request->file('gambar');
-                    $imageName = $image->hashName() . $image->extension();
-                    Storage::put('/app/public/posts/' . $imageName, $image);
+                    $imageName = $image->hashName();
+                    $image->storeAs('public/posts', $imageName);
 
-                    Storage::delete('./posts/' . $data->gambar_artikel);
+                    Storage::delete('public/posts/' . $data->gambar_artikel);
 
                     $data->update([
                         'judul' => $request->judul,
