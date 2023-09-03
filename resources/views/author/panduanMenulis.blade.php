@@ -36,6 +36,12 @@
     </ol>
 
     <span>Pastikan untuk memiliki kebijakan dan aturan yang jelas mengenai pemberian poin, serta berkomunikasi secara transparan dengan kontributor mengenai bagaimana sistem ini berjalan.</span>
+
+    <br>
+
+    <div class="col-12 text-center">
+        <a href="/menulis" class="btn btn-primary mt-3 fw-bold">Mulai Menulis</a>
+    </div>
 </div>
 
 @endsection

@@ -11,7 +11,7 @@
 </div>
 @endif
 
-<div class="container py-5">
+<div class="container py-5" style="min-height: 70vh">
     <div class="row">
         <div class="col-4">
             <div class="text-center">
@@ -32,14 +32,18 @@
             </div>
         </div>
         <div class="col-8">
-            @foreach ($artikel as $post)
+            @forelse ($artikel as $post)
                 <div class="card mb-3 border-1 p-3">
                     <div class=""><h3 class="fw-bold m-0">{{ $post->judul }}</h3></div>
                     <div class=""><span class="opacity-50">{{ \Carbon\Carbon::parse($post->tgl_artikel)->translatedFormat('l, d F Y') }} - 200 Kali Tayang</span></div>
                     <div class=""><h5>{{ $post->cuplikan }}</h5></div>
                     <a href="" class="text-decoration-none">baca selengkapnya...</a>
                 </div>
-            @endforeach
+            @empty
+                <div class="card mb-3 border-1 p-5">
+                    <h3 class="text-center">Belum ada artikel yang disetujui</h3>
+                </div>
+            @endforelse
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@
 </div>
 @endif
 
-<div class="container py-5">
+<div class="container py-5" style="min-height: 70vh">
     <a href="/karyatulis" class="btn btn-outline-danger fw-bold mb-3">Kembali</a>
     <table class="table table-hover table-bordered">
         <thead class="table-light">
@@ -29,9 +29,14 @@
                     <th class="text-center">{{ $loop->iteration }}</th>
                     <td class="text-center">{{ $item->id }}</td>
                     <td>
-                        <span class="fw-bold">{{ $item->judul }}</span>
-                        <br>
-                        <span>{{ $item->cuplikan }}</span>
+                        <div class="row">
+                            {{-- <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" alt="{{ $item->judul }}" style="width: 200px"> --}}
+                            <div class="col-8">
+                                <span class="fw-bold"><a href="/detailartikel/{{ $item->id }}" class="text-dark text-decoration-none">{{ $item->judul }}</a></span>
+                                <br>
+                                {{-- <span>{{ $item->cuplikan }}</span> --}}
+                            </div>
+                        </div>
                     </td>
                     <td>
                         @if ($item->status_artikel == 'Menunggu')
@@ -50,7 +55,8 @@
                         @if ($item->status_artikel == 'Menunggu')
                             <span class="text-warning"><i class="fa-regular fa-clock"></i></span>
                         @elseif ($item->status_artikel == 'Disetujui')
-                            <span class="text-success"><i class="fa-regular fa-circle-check"></i></span>
+                            <span class="text-success ms-0"><i class="fa-regular fa-circle-check"></i></span>
+                            <a href="/hapustulisan/{{ $item->id }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="text-danger ms-lg-3"><i class="fa-regular fa-trash-can"></i></span></a>
                         @else
                             <a href="{{ url('./ubahtulisan/'.$item->id) }}"><span class="text-dark"><i class="fa-regular fa-pen-to-square"></i></span></a>
                             <a href="/hapustulisan/{{ $item->id }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="text-danger ms-lg-3"><i class="fa-regular fa-trash-can"></i></span></a>

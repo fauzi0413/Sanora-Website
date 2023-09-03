@@ -9,15 +9,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use PDO;
 
 class authorController extends Controller
 {
-    function index()
-    {
-        return view('author');
-    }
-
     function infoakun()
     {
         return view('author.akun');
@@ -36,7 +32,67 @@ class authorController extends Controller
 
     function pengaturan()
     {
-        return view('author.pengaturan');
+        return view('author.pengaturanakun');
+    }
+
+    function editpengaturan(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'name' => 'required|min:1',
+            ]
+        );
+
+        Auth::user()->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect('/pengaturan')->with('success', 'Data Berhasil Diubah!!');
+    }
+
+    function pengaturanpassword()
+    {
+        return view('author.pengaturansandi');
+    }
+
+    function editpassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:5|confirmed',
+        ]);
+
+        if (Hash::check($request->current_password, Auth::user()->password)) {
+            Auth::user()->update([
+                'password' => bcrypt($request->password),
+            ]);
+            return back()->with('success', 'Password anda berhasil diubah!');
+        }
+        throw ValidationException::withMessages([
+            'current_password' => 'Password anda tidak sesuai',
+        ]);
+    }
+
+    function editprofile(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'profile' => 'image|mimes:png,jpg,jpeg|max:2048',
+            ]
+        );
+
+        //upload image
+        $image = $request->file('profile');
+        $imageName = $image->hashName();
+        $image->storeAs('public/profile', $imageName);
+
+        Storage::delete('public/profile/' . Auth::user()->profile);
+
+        Auth::user()->update([
+            'profile' => $imageName,
+        ]);
+
+        return redirect('/pengaturan')->with('success', 'Profile berhasil diubah!!');
     }
 
     function panduan_menulis()
@@ -122,14 +178,13 @@ class authorController extends Controller
                     $imageName = $image->hashName();
                     $image->storeAs('public/posts', $imageName);
 
-                    Storage::delete('./posts/' . $data->gambar_artikel);
+                    Storage::delete('public/posts/' . $data->gambar_artikel);
 
                     $data->update([
                         'judul' => $request->judul,
                         'cuplikan' => $request->cuplikan,
-                        'gambar_artikel' => $imageName,
+                        'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
-                        // 'status_artikel' => 'Disimpan',
                     ]);
                 } else {
                     $data = artikel::find($id);
@@ -137,7 +192,6 @@ class authorController extends Controller
                         'judul' => $request->judul,
                         'cuplikan' => $request->cuplikan,
                         'isi_artikel' => $request->isi,
-                        // 'status_artikel' => 'Disimpan',
                     ]);
                 }
 
@@ -145,6 +199,33 @@ class authorController extends Controller
                 break;
 
             case 'submit':
+                if ($request->hasFile('gambar')) {
+                    $data = artikel::findOrFail($id);
+
+                    $image = $request->file('gambar');
+                    $imageName = $image->hashName();
+                    $image->storeAs('public/posts', $imageName);
+
+                    Storage::delete('public/posts/' . $data->gambar_artikel);
+
+                    $data->update([
+                        'judul' => $request->judul,
+                        'cuplikan' => $request->cuplikan,
+                        'gambar_artikel' => $image->hashName(),
+                        'isi_artikel' => $request->isi,
+                        'status_artikel' => 'Menunggu',
+                    ]);
+                } else {
+                    $data = artikel::find($id);
+                    $data->update([
+                        'judul' => $request->judul,
+                        'cuplikan' => $request->cuplikan,
+                        'isi_artikel' => $request->isi,
+                        'status_artikel' => 'Menunggu',
+                    ]);
+                }
+
+                return redirect('/draft')->with('success', 'Data Berhasil Diubah!!');
                 break;
         }
     }
@@ -153,7 +234,7 @@ class authorController extends Controller
     {
         $data = artikel::find($id);
         //delete old image
-        Storage::delete('public/posts' . $data->gambar);
+        Storage::delete('public/posts/' . $data->gambar_artikel);
 
         $data->delete();
 

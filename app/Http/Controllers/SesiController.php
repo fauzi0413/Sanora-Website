@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\artikel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,8 @@ class SesiController extends Controller
 
     function index()
     {
-        return view('index');
+        $artikel = artikel::where('status_artikel', 'Disetujui')->get();
+        return view('index', compact('artikel'));
     }
 
     function loginview()
@@ -70,5 +72,17 @@ class SesiController extends Controller
     {
         Auth::logout();
         return redirect('');
+    }
+
+    function iklan()
+    {
+        return view('iklan');
+    }
+
+    function detail_artikel($id)
+    {
+        $data = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->first();;
+
+        return view('detailartikel', compact('data'));
     }
 }

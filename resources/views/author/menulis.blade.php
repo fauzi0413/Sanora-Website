@@ -5,20 +5,23 @@
 @section('konten')
 
 <div class="container py-5">
-    <a href="/karyatulis" class="btn btn-outline-danger fw-bold mb-3">Kembali</a>
+    <div class="mb-3">
+        <a href="{{ url()->previous() }}" class="btn btn-outline-danger fw-bold me-2">Kembali</a>
+        <a href="/panduan-menulis" class="btn btn-primary fw-bold">Panduan Menulis</a>
+    </div>
     <div class="card shadow-lg rounded-3 border-0">
         <form action="/kirimtulisan" method="POST" class="p-5" enctype="multipart/form-data">
             @csrf
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn text-info fw-bold" type="submit" name="submit" value="simpan">Simpan</button>
-                <button class="btn btn-info text-white fw-bold" type="submit" name="submit" value="submit">Submit</button>
+                <button class="btn text-info fw-bold" type="submit" name="submit" value="simpan" onclick="return confirm('Apakah anda yakin ingin menyimpan artikel?')">Simpan</button>
+                <button class="btn btn-info text-white fw-bold" type="submit" name="submit" value="submit" onclick="return confirm('Apakah anda yakin ingin mensubmit artikel?')">Submit</button>
             </div>
             <div class="mb-3">
                 <label for="judul" class="form-label">Judul Artikel</label>
                 <input type="text" value="{{ old('judul') }}" name="judul" class="form-control @error('judul') is-invalid @enderror" placeholder="Tulis judul kamu disini...">
                 @error('judul')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Judul wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>
@@ -27,7 +30,7 @@
                 <input type="text" value="{{ old('cuplikan') }}" name="cuplikan" class="form-control @error('cuplikan') is-invalid @enderror" placeholder="Tulis cuplikan kamu disini...">
                 @error('cuplikan')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Cuplikan wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>
@@ -41,7 +44,7 @@
                 {{-- <label for="floatingTextarea2">Comments</label> --}}
                 @error('isi')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Isi artikel wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>

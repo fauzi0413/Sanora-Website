@@ -25,6 +25,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [SesiController::class, 'login']);
     Route::get('/register', [SesiController::class, 'registerview']);
     Route::post('/register', [SesiController::class, 'register']);
+    Route::get('/iklan', [SesiController::class, 'iklan']);
+    Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
 });
 
 Route::get('/home', function () {
@@ -33,13 +35,20 @@ Route::get('/home', function () {
 
 // Route middleware auth digunakan untuk mengakses halaman apabila user dalam keadaan login
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [adminController::class, 'index'])->middleware('userAkses:admin');
+    Route::get('/admin', [SesiController::class, 'index'])->middleware('userAkses:admin');
+    Route::get('/author', [SesiController::class, 'index'])->middleware('userAkses:author');
 
-    Route::get('/author', [authorController::class, 'index'])->middleware('userAkses:author');
+    Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
     Route::get('/infoakun', [authorController::class, 'infoakun'])->middleware('userAkses:author');
     Route::get('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
-    // Route::resource('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
+
     Route::get('/pengaturan', [authorController::class, 'pengaturan'])->middleware('userAkses:author');
+    Route::put('/editpengaturan', [authorController::class, 'editpengaturan'])->middleware('userAkses:author');
+
+    Route::get('/pengaturan-katasandi', [authorController::class, 'pengaturanpassword'])->middleware('userAkses:author');
+    Route::put('/editpassword', [authorController::class, 'editpassword'])->middleware('userAkses:author');
+
+    Route::put('/editprofile', [authorController::class, 'editprofile'])->middleware('userAkses:author');
 
     Route::get('/panduan-menulis', [authorController::class, 'panduan_menulis'])->middleware('userAkses:author');
 

@@ -10,15 +10,15 @@
         <form action="/edittulisan/{{ $data->id }}" method="POST" class="p-5" enctype="multipart/form-data">
             @csrf
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn text-info fw-bold" type="submit" name="submit" value="simpan">Simpan</button>
-                <button class="btn btn-info text-white fw-bold" type="submit" name="submit" value="submit">Submit</button>
+                <button class="btn text-info fw-bold" type="submit" name="submit" value="simpan" onclick="return confirm('Apakah anda yakin ingin menyimpan artikel?')">Simpan</button>
+                <button class="btn btn-info text-white fw-bold" type="submit" name="submit" value="submit" onclick="return confirm('Apakah anda yakin ingin menyimpan artikel?')">Submit</button>
             </div>
             <div class="mb-3">
                 <label for="judul" class="form-label">Judul Artikel</label>
                 <input type="text" value="{{ $data->judul }}" name="judul" class="form-control @error('judul') is-invalid @enderror" placeholder="Tulis judul kamu disini...">
                 @error('judul')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Judul wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>
@@ -27,7 +27,7 @@
                 <input type="text" value="{{ $data->cuplikan }}" name="cuplikan" class="form-control @error('cuplikan') is-invalid @enderror" placeholder="Tulis cuplikan kamu disini...">
                 @error('cuplikan')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Cuplikan wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>
@@ -40,7 +40,7 @@
                 <textarea  value="{{ $data->isi_artikel }}" name="isi" class="form-control @error('isi') is-invalid @enderror" placeholder="Mulai menulis cerita..." style="height: 100px">{{ $data->isi_artikel }}</textarea>
                 @error('isi')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Isi artikel wajib diisi!
+                        {{ $message }}
                     </div>                
                 @enderror
             </div>
