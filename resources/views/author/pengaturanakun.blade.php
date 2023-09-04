@@ -14,7 +14,11 @@
 <div class="container py-5">
     <div class="card p-5">
         <div class="col-12 text-center">
-            <img src="{{ asset('./storage/profile/'. Auth::user()->profile ) }}" alt="Profil {{ Auth::user()->name }}" style="width: 300px; height: 300px; background-size: cover" class="rounded-circle mb-2">
+            @if ( empty(Auth::user()->profile) )
+                <h1 class=""><i class="fa-regular fa-user bg-white shadow opacity-75 rounded-circle p-5"></i></h1>
+            @else
+                <img src="{{ asset('./storage/profile/'. Auth::user()->profile ) }}" alt="Profil {{ Auth::user()->name }}" style="width: 300px; height: 300px; background-size: cover" class="rounded-circle shadow mb-2">
+            @endif
             <br>
             <button type="button" class="btn btn-sm btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#modalprofile">Edit Profil</button>
         </div>

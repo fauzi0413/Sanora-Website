@@ -25,7 +25,7 @@
                     </div>                
                 @enderror
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="cuplikan" class="form-label">Cuplikan Artikel</label>
                 <input type="text" value="{{ old('cuplikan') }}" name="cuplikan" class="form-control @error('cuplikan') is-invalid @enderror" placeholder="Tulis cuplikan kamu disini...">
                 @error('cuplikan')
@@ -33,14 +33,14 @@
                         {{ $message }}
                     </div>                
                 @enderror
-            </div>
+            </div> --}}
             <div class="mb-3">
                 <label for="gambar" class="form-label">Masukkan Gambar untuk Artikel</label>
                 <input type="file" value="{{ old('gambar') }}" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
             </div>
             <div class="mb-3">
                 <label for="isi" class="form-label">Isi Artikel</label>
-                <textarea  value="{{ old('isi') }}" name="isi" class="form-control @error('isi') is-invalid @enderror" placeholder="Mulai menulis cerita..." style="height: 100px"></textarea>
+                <textarea  value="{{ old('isi') }}" name="isi" class="form-control @error('isi') is-invalid @enderror" placeholder="Mulai menulis cerita..." style="height: 100px">{{ old('isi') }}</textarea>
                 {{-- <label for="floatingTextarea2">Comments</label> --}}
                 @error('isi')
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">

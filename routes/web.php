@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
+Route::get('/iklan', [SesiController::class, 'iklan']);
+
 // Route middleware guest digunakan untuk mengakses halaman apabila user tidak dalam keadaan login
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [SesiController::class, 'index']);
@@ -25,8 +28,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [SesiController::class, 'login']);
     Route::get('/register', [SesiController::class, 'registerview']);
     Route::post('/register', [SesiController::class, 'register']);
-    Route::get('/iklan', [SesiController::class, 'iklan']);
-    Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
 });
 
 Route::get('/home', function () {
@@ -38,7 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [SesiController::class, 'index'])->middleware('userAkses:admin');
     Route::get('/author', [SesiController::class, 'index'])->middleware('userAkses:author');
 
-    Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
+    // Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
+
+    Route::post('/submitartikel/{id}', [authorController::class, 'submitartikel']);
     Route::get('/infoakun', [authorController::class, 'infoakun'])->middleware('userAkses:author');
     Route::get('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
 

@@ -8,8 +8,12 @@
     <div class="jumbotron bg-info">
         <div class="container text-center">
             <div class="row align-items-center">
-                <div class="col-md-4">
-                    <img src="{{ asset('./storage/profile/'. Auth::user()->profile ) }}" alt="Profil {{ Auth::user()->name }}" style="width: 150px; height: 150px; background-size: cover" class="rounded-circle my-5">
+                <div class="col-md-4 my-5">
+                    @if ( empty(Auth::user()->profile) )
+                        <h1 class=""><i class="fa-regular fa-user bg-white shadow rounded-circle p-5"></i></h1>
+                    @else
+                        <img src="{{ asset('./storage/profile/'. Auth::user()->profile ) }}" alt="Profil {{ Auth::user()->name }}" style="width: 150px; height: 150px; background-size: cover" class="rounded-circle shadow my-5">
+                    @endif
                 </div>
                 <div class="col-md-8 text-start text-white">
                     <h1 class="fw-bold">{{ Auth::user()->name }}</h1>

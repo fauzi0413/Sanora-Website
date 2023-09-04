@@ -27,13 +27,13 @@
 
         <h2 class="mb-3 fw-bold">Rekomendasi</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-            @forelse ($artikel as $data)
+            @forelse ($recomendation as $data)
                 <div class="col">
                     <div class="card border border-2">
                     <img src="{{ asset('./storage/posts/'.$data->gambar_artikel) }}" class="card-img-top" alt="{{ $data->judul }}" style="height: 200px">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">{{ $data->judul }}</h5>
-                        <p class="card-text m-0">{{ $data->cuplikan }}</p>
+                        <p class="card-text m-0">{!! Str::limit($data->isi_artikel, 200) !!}</p>
                         <span><a href="/detailartikel/{{ $data->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
                     </div>
                     </div>
@@ -49,66 +49,38 @@
 
         <h2 class="mb-3 fw-bold">Berita Terkini</h2>
         <div class="mb-5">
+
+            @forelse ($news as $artikel)
+                
             <div class="card border border-2 mb-3">
                 <div class="row g-0">
-                    <div class="col-md-2 ms-md-5">
-                        <img src="img/beritaterkini1.png" class="img-fluid" alt="...">
+                    <div class="col-md-4 my-auto">
+                        <img src="{{ asset('./storage/posts/'.$artikel->gambar_artikel) }}" class="img-fluid" alt="{{ $artikel->judul }}" style="height: 300px">
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-7">
                         <div class="card-body">
-                        <h5 class="card-title fw-bold">Ciri-ciri Hipertensi, Penyakit Darah Tinggi yang Bisa Menyerang Usia Muda</h5>
-                        <p class="card-text">Hipertensi atau tekanan darah tinggi hanya bisa terjadi pada orang usia lanjut. Padahal, kondisi ini juga sangat rentan dialami oleh kelompok usia muda...</p>
-                        <p class="card-text fw-light">Rabu 23 Agustus 2023 oleh Intan</p>
+                            <h5 class="card-title fw-bold">{{ $artikel->judul }}</h5>
+                            <p class="card-text fw-light opacity-50">{{ \Carbon\Carbon::parse($artikel->tgl_artikel)->translatedFormat('l, d F Y') }} Oleh {{ $artikel->name }}</p>
+                            <p class="card-text">{!! Str::limit($artikel->isi_artikel, 500) !!}</p>
+                            <br>
+                            <span><a href="/detailartikel/{{ $artikel->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @empty
+                <div class="col-12 text-center w-100">
+                    <div class="card border border-2 p-5">
+                        <h3 class="">Belum Ada Artikel</h3>
+                    </div>
+                </div>
+            @endforelse
             
-            <div class="card border border-2 mb-3">
-                <div class="row g-0">
-                    <div class="col-md-2 ms-md-5">
-                        <img src="img/beritaterkini1.png" class="img-fluid" alt="...">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                        <h5 class="card-title fw-bold">Ciri-ciri Hipertensi, Penyakit Darah Tinggi yang Bisa Menyerang Usia Muda</h5>
-                        <p class="card-text">Hipertensi atau tekanan darah tinggi hanya bisa terjadi pada orang usia lanjut. Padahal, kondisi ini juga sangat rentan dialami oleh kelompok usia muda...</p>
-                        <p class="card-text fw-light">Rabu 23 Agustus 2023 oleh Intan</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card border border-2 mb-3">
-                <div class="row g-0">
-                    <div class="col-md-2 ms-md-5">
-                        <img src="img/beritaterkini1.png" class="img-fluid" alt="...">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                        <h5 class="card-title fw-bold">Ciri-ciri Hipertensi, Penyakit Darah Tinggi yang Bisa Menyerang Usia Muda</h5>
-                        <p class="card-text">Hipertensi atau tekanan darah tinggi hanya bisa terjadi pada orang usia lanjut. Padahal, kondisi ini juga sangat rentan dialami oleh kelompok usia muda...</p>
-                        <p class="card-text fw-light">Rabu 23 Agustus 2023 oleh Intan</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-            </ul>
-        </nav>
+        <div class="col-12 text-center">
+            <span class="">{{ $news->links() }}</span>
+        </div>
     </div>
 
 @endsection

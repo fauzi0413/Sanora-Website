@@ -12,8 +12,9 @@ class SesiController extends Controller
 
     function index()
     {
-        $artikel = artikel::where('status_artikel', 'Disetujui')->get();
-        return view('index', compact('artikel'));
+        $news = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('status_artikel', 'Disetujui')->orderBy('updated_at', 'desc')->paginate(5);
+        $recomendation = artikel::where('status_artikel', 'Disetujui')->orderBy('tayangan', 'desc')->orderBy('updated_at', 'desc')->limit(3)->get();
+        return view('index', compact('news', 'recomendation'));
     }
 
     function loginview()
@@ -81,7 +82,20 @@ class SesiController extends Controller
 
     function detail_artikel($id)
     {
-        $data = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->first();;
+        $data = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('artikels.id', $id)->get();
+        if ($data->where('status_artikel', 'Disetujui')) {
+            // views($data)->record();
+        }
+
+        return view('detailartikel', compact('data'));
+    }
+
+    function detail_artikel_tayangan($id)
+    {
+        $data = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('artikels.id', $id)->get();
+        if ($data->where('status_artikel', 'Disetujui')) {
+            // views($data)->record();
+        }
 
         return view('detailartikel', compact('data'));
     }

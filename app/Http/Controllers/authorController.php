@@ -22,7 +22,7 @@ class authorController extends Controller
     function karyatulis()
     {
         $id = Auth::user()->id;
-        $data = artikel::where('id_author', $id)->where('status_artikel', 'Menunggu')->get();
+        $data = artikel::where('id_author', $id)->where('status_artikel', 'Disetujui')->get();
         $artikel = $data->sortBy([
             ['tgl_artikel', 'desc'],
         ]);
@@ -109,8 +109,8 @@ class authorController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'judul' => 'required|min:1|max:50',
-                'cuplikan' => 'required|min:1|max:70',
+                'judul' => 'required|min:1|max:255',
+                // 'cuplikan' => 'required|min:1|max:70',
                 'gambar' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                 'isi' => 'required',
             ]
@@ -127,12 +127,13 @@ class authorController extends Controller
                 artikel::create([
                     'id_author' => Auth::user()->id,
                     'judul' => $request->judul,
-                    'cuplikan' => $request->cuplikan,
+                    // 'cuplikan' => $request->cuplikan,
                     'gambar_artikel' => $image->hashName(),
                     'isi_artikel' => $request->isi,
                     'status_artikel' => 'Disimpan',
+                    'tayangan' => 0,
                 ]);
-                return redirect('/karyatulis')->with('success', 'Data Berhasil Disimpan!');
+                return redirect('/karyatulis')->with('success', 'Artikrl Berhasil Disimpan, silahkan lihat kembali artikel di Draft');
                 break;
 
             case 'submit':
@@ -140,13 +141,14 @@ class authorController extends Controller
                 artikel::create([
                     'id_author' => Auth::user()->id,
                     'judul' => $request->judul,
-                    'cuplikan' => $request->cuplikan,
+                    // 'cuplikan' => $request->cuplikan,
                     'gambar_artikel' => $image->hashName(),
                     'isi_artikel' => $request->isi,
                     'tgl_artikel' => Carbon::now(),
                     'status_artikel' => 'Menunggu',
+                    'tayangan' => 0,
                 ]);
-                return redirect('/karyatulis')->with('success', 'Data Berhasil Disubmit!');
+                return redirect('/karyatulis')->with('success', 'Artikel Berhasil Disubmit!');
                 break;
         }
     }
@@ -163,7 +165,7 @@ class authorController extends Controller
         $validatedData = $request->validate(
             [
                 'judul' => 'required|min:1|max:50',
-                'cuplikan' => 'required|min:1|max:70',
+                // 'cuplikan' => 'required|min:1|max:70',
                 'gambar' => 'image|mimes:png,jpg,jpeg|max:2048',
                 'isi' => 'required',
             ]
@@ -182,7 +184,7 @@ class authorController extends Controller
 
                     $data->update([
                         'judul' => $request->judul,
-                        'cuplikan' => $request->cuplikan,
+                        // 'cuplikan' => $request->cuplikan,
                         'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
                     ]);
@@ -190,12 +192,12 @@ class authorController extends Controller
                     $data = artikel::find($id);
                     $data->update([
                         'judul' => $request->judul,
-                        'cuplikan' => $request->cuplikan,
+                        // 'cuplikan' => $request->cuplikan,
                         'isi_artikel' => $request->isi,
                     ]);
                 }
 
-                return redirect('/draft')->with('success', 'Data Berhasil Diubah!!');
+                return redirect('/draft')->with('success', 'Artikel Berhasil Diubah!!');
                 break;
 
             case 'submit':
@@ -210,7 +212,7 @@ class authorController extends Controller
 
                     $data->update([
                         'judul' => $request->judul,
-                        'cuplikan' => $request->cuplikan,
+                        // 'cuplikan' => $request->cuplikan,
                         'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
                         'status_artikel' => 'Menunggu',
@@ -219,13 +221,13 @@ class authorController extends Controller
                     $data = artikel::find($id);
                     $data->update([
                         'judul' => $request->judul,
-                        'cuplikan' => $request->cuplikan,
+                        // 'cuplikan' => $request->cuplikan,
                         'isi_artikel' => $request->isi,
                         'status_artikel' => 'Menunggu',
                     ]);
                 }
 
-                return redirect('/draft')->with('success', 'Data Berhasil Diubah!!');
+                return redirect('/draft')->with('success', 'Artikel Berhasil Diubah!!');
                 break;
         }
     }
@@ -239,7 +241,18 @@ class authorController extends Controller
         $data->delete();
 
 
-        return redirect('/status')->with('success', 'Data Berhasil Dihapus!!');
+        return redirect('/status')->with('success', 'Artikel Berhasil Dihapus!!');
+    }
+
+    function submitartikel(Request $request, $id)
+    {
+        $data = artikel::find($id);
+
+        $data->update([
+            'status_artikel' => 'Menunggu',
+        ]);
+
+        return redirect('/draft')->with('success', 'Artikel Anda Berhasil Disubmit!!');
     }
 
     function draft()
@@ -258,7 +271,7 @@ class authorController extends Controller
         $id = Auth::user()->id;
         $data = artikel::where('id_author', $id)->get();
         $status = $data->sortBy([
-            ['tgl_artikel', 'desc'],
+            ['id', 'desc'],
         ]);
 
         return view('author.status', compact('status'));

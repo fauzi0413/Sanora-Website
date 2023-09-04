@@ -21,7 +21,7 @@
                     <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" class="card-img-top" style="height: 200px" alt="{{ $item->judul }}">
                     <div class="card-body">
                         <h4 class="card-title fw-bold"><a href="{{ url('./detailartikel/'.$item->id) }}" class="text-decoration-none text-dark">{{ $item->judul }}</a></h4>
-                        <p class="card-text">{{ $item->cuplikan }}</p>
+                        <p class="card-text">{!! Str::limit($item->isi_artikel, 100) !!}</p>
                     </div>
                 </div>
             </div>
