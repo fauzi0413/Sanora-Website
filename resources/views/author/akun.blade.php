@@ -15,11 +15,11 @@
                         <img src="{{ asset('./storage/profile/'. Auth::user()->profile ) }}" alt="Profil {{ Auth::user()->name }}" style="width: 150px; height: 150px; background-size: cover" class="rounded-circle shadow my-5">
                     @endif
                 </div>
-                <div class="col-md-8 text-start text-white">
+                <div class="col-md-8 text-lg-start text-center pb-5 text-white">
                     <h1 class="fw-bold">{{ Auth::user()->name }}</h1>
-                    <span>publish 12 artikel</span>
+                    <span>Publish {{ $publish }} artikel</span>
                     <br>
-                    <span>200 kali tayang</span>
+                    <span>{{ $jumlah_artikel }} kali tayang</span>
                 </div>
             </div>
         </div>
@@ -27,69 +27,30 @@
 
     <div class="container py-5">
         <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card border border-2 border-right-0" style="width: 100%;">
-                    <div class="row align-items-start">
-                        <div class="col-md-4 text-center d-flex justify-content-center">
-                            <img src="img/akuncard1.png" class="img-fluid mt-3" alt="..." style="height: 100px;">
-                        </div>
-                        <div class="col-md-8">
-                            <h2 class="ms-2 mt-3">Kesehatan Mental di Era Digital Menjaga Keseimbangan Penggunaan Teknologi</h2>
-                            <p class="ms-2 card-text fw-light mt-2">Rabu 23 Agustus 2023 oleh Intan</p>
-                            <p class="ms-2 mb-3 me-5">Peningkatan penggunaan teknologi dapat berdampak pada kesehatan mental, termasuk gejala kecemasan dan depresi. Artikel ini 
-                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="#">baca selengkapnya...</a></p>
+            @forelse ($artikel as $artikels)
+                <div class="col-md-6 mb-4">
+                    <div class="card border border-2 p-5" style="width: 100%;">
+                        <div class="row align-items-start">
+                            <div class="col-md-4 text-center d-flex justify-content-center">
+                                <img src="{{ asset('./storage/posts/'.$artikels->gambar_artikel) }}" class="img-fluid mt-3" alt="Gambar {{ $artikels->judul }}" style="height: 150px;">
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="ms-2 mt-3">{{ $artikels->judul }}</h2>
+                                <p class="ms-2 card-text fw-light mt-2">{{ \Carbon\Carbon::parse($artikels->tgl_artikel)->translatedFormat('l, d F Y') }} - {{ $artikels->tayangan }} tayang</p>
+                                <p class="ms-2">{!! Str::limit($artikels->isi_artikel, 200) !!}</p>
+                                <a class="text-decoration-none" href="/detailartikel/{{ $artikels->id }}">baca selengkapnya...</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @empty
+                <div class="col-12">
+                    <div class="card mb-3 border-1 p-5">
+                        <h3 class="text-center">Belum ada artikel yang disetujui</h3>
+                    </div>
+                </div>
+            @endforelse
             
-            <div class="col-md-6 mb-4">
-                <div class="card border border-2 border-right-0" style="width: 100%;">
-                    <div class="row align-items-start">
-                        <div class="col-md-4 text-center d-flex justify-content-center">
-                            <img src="img/akuncard1.png" class="img-fluid mt-3" alt="..." style="height: 100px;">
-                        </div>
-                        <div class="col-md-8">
-                            <h2 class="ms-2 mt-3">Kesehatan Mental di Era Digital Menjaga Keseimbangan Penggunaan Teknologi</h2>
-                            <p class="ms-2 card-text fw-light mt-2">Rabu 23 Agustus 2023 oleh Intan</p>
-                            <p class="ms-2 mb-3 me-5">Peningkatan penggunaan teknologi dapat berdampak pada kesehatan mental, termasuk gejala kecemasan dan depresi. Artikel ini 
-                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="#">baca selengkapnya...</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-                <div class="card border border-2 border-right-0" style="width: 100%;">
-                    <div class="row align-items-start">
-                        <div class="col-md-4 text-center d-flex justify-content-center">
-                            <img src="img/akuncard1.png" class="img-fluid mt-3" alt="..." style="height: 100px;">
-                        </div>
-                        <div class="col-md-8">
-                            <h2 class="ms-2 mt-3">Kesehatan Mental di Era Digital Menjaga Keseimbangan Penggunaan Teknologi</h2>
-                            <p class="ms-2 card-text fw-light mt-2">Rabu 23 Agustus 2023 oleh Intan</p>
-                            <p class="ms-2 mb-3 me-5">Peningkatan penggunaan teknologi dapat berdampak pada kesehatan mental, termasuk gejala kecemasan dan depresi. Artikel ini 
-                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="#">baca selengkapnya...</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-                <div class="card border border-2 border-right-0" style="width: 100%;">
-                    <div class="row align-items-start">
-                        <div class="col-md-4 text-center d-flex justify-content-center">
-                            <img src="img/akuncard1.png" class="img-fluid mt-3" alt="..." style="height: 100px;">
-                        </div>
-                        <div class="col-md-8">
-                            <h2 class="ms-2 mt-3">Kesehatan Mental di Era Digital Menjaga Keseimbangan Penggunaan Teknologi</h2>
-                            <p class="ms-2 card-text fw-light mt-2">Rabu 23 Agustus 2023 oleh Intan</p>
-                            <p class="ms-2 mb-3 me-5">Peningkatan penggunaan teknologi dapat berdampak pada kesehatan mental, termasuk gejala kecemasan dan depresi. Artikel ini 
-                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="#">baca selengkapnya...</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

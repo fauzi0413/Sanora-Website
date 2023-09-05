@@ -32,7 +32,7 @@
                         <div class="row">
                             {{-- <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" alt="{{ $item->judul }}" style="width: 200px"> --}}
                             <div class="col-8">
-                                <span class="fw-bold"><a href="/detailartikel/{{ $item->id }}" class="text-dark text-decoration-none">{{ $item->judul }}</a></span>
+                                <span class="fw-bold"><a href="/detailartikel/{{ $item->id }}" class="text-dark">{{ $item->judul }}</a></span>
                                 <br>
                                 {{-- <span>{{ $item->cuplikan }}</span> --}}
                             </div>

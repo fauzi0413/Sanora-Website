@@ -16,7 +16,11 @@ class authorController extends Controller
 {
     function infoakun()
     {
-        return view('author.akun');
+        $id = Auth::user()->id;
+        $artikel = artikel::where('status_artikel', 'Disetujui')->where('id_author', $id)->get();
+        $publish = artikel::where('status_artikel', 'Disetujui')->where('id_author', $id)->count();
+        $jumlah_artikel = artikel::where('status_artikel', 'Disetujui')->where('id_author', $id)->sum('tayangan');
+        return view('author.akun', compact('artikel', 'publish', 'jumlah_artikel'));
     }
 
     function karyatulis()

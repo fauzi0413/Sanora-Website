@@ -13,7 +13,7 @@
 
 <div class="container py-5" style="min-height: 70vh">
     <div class="row">
-        <div class="col-4">
+        <div class="col-lg-4 col-md-12 mb-3">
             <div class="card border border-2 p-2 py-5" style="width: 100%;">
                 <div class="text-center">
                     @if ( empty(Auth::user()->profile) )
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-lg-8 col-md-12">
             @forelse ($artikel as $post)
                 <div class="card mb-3 border-1 p-3">
                     <div class=""><h3 class="fw-bold m-0">{{ $post->judul }}</h3></div>
