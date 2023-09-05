@@ -93,9 +93,11 @@ class SesiController extends Controller
     function detail_artikel_tayangan($id)
     {
         $data = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('artikels.id', $id)->get();
-        if ($data->where('status_artikel', 'Disetujui')) {
-            // views($data)->record();
-        }
+
+        $tayangan = artikel::find($id);
+        artikel::where('id', $tayangan->id)->update([
+            'tayangan' => $tayangan->tayangan + 1,
+        ]);
 
         return view('detailartikel', compact('data'));
     }

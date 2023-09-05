@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
+Route::get('/artikel/{id}', [SesiController::class, 'detail_artikel_tayangan']);
 Route::get('/iklan', [SesiController::class, 'iklan']);
 
 // Route middleware guest digunakan untuk mengakses halaman apabila user tidak dalam keadaan login

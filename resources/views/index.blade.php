@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <h5 class="card-title fw-bold">{{ $data->judul }}</h5>
                         <p class="card-text m-0">{!! Str::limit($data->isi_artikel, 200) !!}</p>
-                        <span><a href="/detailartikel/{{ $data->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
+                        <span><a href="/artikel/{{ $data->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
                     </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             <p class="card-text fw-light opacity-50">{{ \Carbon\Carbon::parse($artikel->tgl_artikel)->translatedFormat('l, d F Y') }} Oleh {{ $artikel->name }}</p>
                             <p class="card-text">{!! Str::limit($artikel->isi_artikel, 500) !!}</p>
                             <br>
-                            <span><a href="/detailartikel/{{ $artikel->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
+                            <span><a href="/artikel/{{ $artikel->id }}" class="text-decoration-none">baca selengkapnya...</a></span>
                         </div>
                     </div>
                 </div>
