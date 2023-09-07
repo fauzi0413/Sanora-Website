@@ -23,6 +23,7 @@ class artikel extends Model implements Viewable
         'status_artikel',
         'tgl_artikel',
         'tayangan',
+        'catatan',
     ];
 
     public function getCreatedAtAtribute()

@@ -1,7 +1,23 @@
 <nav class="navbar navbar-expand-lg shadow bg-white sticky-top">
   <div class="container">
-    <a class="navbar-brand" href="{{ '/' }}"><img src="{{ asset('logodanteks.png') }}" alt="Logo Sanora" style="width: 100px"></a>
-
+    @guest
+      <a class="navbar-brand" href="{{ '/' }}"><img src="{{ asset('logodanteks.png') }}" alt="Logo Sanora" style="width: 100px"></a>
+    @else
+      @if (Auth::user()->role == 'admin')
+        <div class="d-none d-lg-block">
+          <a class="navbar-brand" href="{{ '/' }}"><img src="{{ asset('logodanteks.png') }}" alt="Logo Sanora" style="width: 100px"></a>
+        </div>
+        <div class="d-lg-none d-block">
+          <a class="navbar-brand" href="{{ '/' }}"><img src="{{ asset('logodanteks.png') }}" alt="Logo Sanora" style="width: 100px"></a>
+          <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#asider">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+        </div>
+      @else
+        <a class="navbar-brand" href="{{ '/' }}"><img src="{{ asset('logodanteks.png') }}" alt="Logo Sanora" style="width: 100px"></a>
+      @endif
+    @endguest
+    
     {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> --}}
@@ -26,9 +42,16 @@
                 <button class="btn btn-info text-white rounded-5 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">{{ Auth::user()->name }}</button>
 
                 <div class="dropdown-menu dropdown-menu-end bg-white" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ '/infoakun' }}">Info Akun</a>
-                    <a class="dropdown-item" href="{{ '/karyatulis' }}">Karya Tulis</a>
-                    <a class="dropdown-item" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+
+                    @if (Auth::user()->role == 'author')
+                      <a class="dropdown-item" href="{{ '/infoakun' }}">Info Akun</a>
+                      <a class="dropdown-item" href="{{ '/karyatulis' }}">Karya Tulis</a>
+                      <a class="dropdown-item" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+                    @elseif (Auth::user()->role == 'admin')
+                      <a class="dropdown-item" href="">Info Akun</a>
+                      <a class="dropdown-item" href="{{ '/pengaturan-admin' }}">Pengaturan Akun</a>
+                    @endif
+
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar
                     </a>
@@ -44,9 +67,14 @@
                   </div>
 
                   <div class="row px-5 py-3 text-center">
-                    <a class="text-decoration-none mb-3 text-dark" href="{{ '/infoakun' }}">Info Akun</a>
-                    <a class="text-decoration-none mb-3 text-dark" href="{{ '/karyatulis' }}">Karya Tulis</a>
-                    <a class="text-decoration-none mb-3 text-dark" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+                    @if (Auth::user()->role == 'author')
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/infoakun' }}">Info Akun</a>
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/karyatulis' }}">Karya Tulis</a>
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+                    @elseif (Auth::user()->role == 'admin')
+                      <a class="dropdown-item mb-3" href="">Info Akun</a>
+                      <a class="dropdown-item mb-3" href="{{ '/pengaturan-admin' }}">Pengaturan Akun</a>
+                    @endif
                     <a class="text-decoration-none mb-3 text-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar
                     </a>

@@ -25,15 +25,6 @@
                     </div>                
                 @enderror
             </div>
-            {{-- <div class="mb-3">
-                <label for="cuplikan" class="form-label">Cuplikan Artikel</label>
-                <input type="text" value="{{ old('cuplikan') }}" name="cuplikan" class="form-control @error('cuplikan') is-invalid @enderror" placeholder="Tulis cuplikan kamu disini...">
-                @error('cuplikan')
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        {{ $message }}
-                    </div>                
-                @enderror
-            </div> --}}
             <div class="mb-3">
                 <label for="gambar" class="form-label">Masukkan Gambar untuk Artikel</label>
                 <input type="file" value="{{ old('gambar') }}" name="gambar" class="form-control @error('gambar') is-invalid @enderror">

@@ -19,7 +19,6 @@
         </div>
     @elseif ($item->status_artikel == 'Disetujui' || $item->status_artikel == 'Menunggu')
         <div class="mb-3">
-            {{-- <a href="/" class="btn btn-outline-danger fw-bold me-2">Kembali</a> --}}
             <a href="{{ url()->previous() }}" class="btn btn-outline-danger fw-bold me-2">Kembali</a>
         </div>
     @endif

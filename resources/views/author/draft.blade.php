@@ -16,7 +16,7 @@
     <h3 class="fw-bold pb-3">Draft</h3>
     <div class="row">
         @forelse ($draft as $item)
-            <div class="col-4 mb-3">
+            <div class="col-lg-4 col-12 mb-3">
                 <div class="card" style="min-height: 100px">
                     <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" class="card-img-top" style="height: 200px" alt="{{ $item->judul }}">
                     <div class="card-body">

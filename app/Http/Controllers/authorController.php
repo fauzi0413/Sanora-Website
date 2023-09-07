@@ -137,7 +137,7 @@ class authorController extends Controller
                     'status_artikel' => 'Disimpan',
                     'tayangan' => 0,
                 ]);
-                return redirect('/karyatulis')->with('success', 'Artikrl Berhasil Disimpan, silahkan lihat kembali artikel di Draft');
+                return redirect('/karyatulis')->with('success', 'Artikel Berhasil Disimpan, silahkan lihat kembali artikel di Draft');
                 break;
 
             case 'submit':
@@ -244,11 +244,10 @@ class authorController extends Controller
 
         $data->delete();
 
-
         return redirect('/status')->with('success', 'Artikel Berhasil Dihapus!!');
     }
 
-    function submitartikel(Request $request, $id)
+    function submitartikel($id)
     {
         $data = artikel::find($id);
 

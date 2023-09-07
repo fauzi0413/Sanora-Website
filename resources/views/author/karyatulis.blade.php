@@ -32,7 +32,7 @@
                                 <li class="list-group-item text-start"><a href="{{ '/menulis' }}" class="text-decoration-none text-dark">Mulai Menulis</a></li>
                                 <li class="list-group-item text-start"><a href="{{ '/draft' }}" class="text-decoration-none text-dark">Draft</a></li>
                                 <li class="list-group-item text-start"><a href="{{ '/status' }}" class="text-decoration-none text-dark">Status</a></li>
-                                <li class="list-group-item text-start"><a href="{{ '/pointku' }}" class="text-decoration-none text-dark">Poinku</a></li>
+                                {{-- <li class="list-group-item text-start"><a href="{{ '/pointku' }}" class="text-decoration-none text-dark">Poinku</a></li> --}}
                             </ul>
                         </div>
                     </div>

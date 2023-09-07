@@ -22,6 +22,7 @@ class CreateArtikelTable extends Migration
             $table->string('status_artikel');
             $table->date('tgl_artikel')->nullable();
             $table->integer('tayangan');
+            $table->text('tayangan')->nullable();
             $table->timestamps();
         });
     }

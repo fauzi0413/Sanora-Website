@@ -37,12 +37,40 @@ Route::get('/home', function () {
 
 // Route middleware auth digunakan untuk mengakses halaman apabila user dalam keadaan login
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [SesiController::class, 'index'])->middleware('userAkses:admin');
+    // Router Admin
+    Route::get('/admin', [adminController::class, 'index'])->middleware('userAkses:admin');
+
+    Route::get('/dataauthor', [adminController::class, 'views_akun_author'])->middleware('userAkses:admin');
+    Route::get('/dataadmin', [adminController::class, 'views_akun_admin'])->middleware('userAkses:admin');
+    Route::get('/dataartikel', [adminController::class, 'views_artikel'])->middleware('userAkses:admin');
+    Route::get('/detailartikel_admin/{id}', [adminController::class, 'detail_artikel'])->middleware('userAkses:admin');
+    Route::get('/hapus_artikel/{id}', [authorController::class, 'hapus_artikel'])->middleware('userAkses:admin');
+
+    Route::get('/pengaturan-admin', [adminController::class, 'pengaturan'])->middleware('userAkses:admin');
+    Route::put('/editpengaturan_admin', [adminController::class, 'editpengaturan'])->middleware('userAkses:admin');
+
+    Route::get('/pengaturan-katasandi-admin', [adminController::class, 'pengaturanpassword'])->middleware('userAkses:admin');
+    Route::put('/editpassword_admin', [adminController::class, 'editpassword'])->middleware('userAkses:admin');
+
+    Route::put('/editprofile_admin', [adminController::class, 'editprofile'])->middleware('userAkses:admin');
+
+    Route::get('/createakun', [adminController::class, 'createakun_views'])->middleware('userAkses:admin');
+    Route::post('/createakun', [adminController::class, 'createakun'])->middleware('userAkses:admin');
+
+    Route::get('/editakun/{id}', [adminController::class, 'editakun_views'])->middleware('userAkses:admin');
+    Route::put('/editakun/{id}', [adminController::class, 'editakun'])->middleware('userAkses:admin');
+
+    Route::get('/hapusakun/{id}', [adminController::class, 'hapusakun'])->middleware('userAkses:admin');
+
+    Route::post('/submitartikel_admin/{id}', [adminController::class, 'submitartikel'])->middleware('userAkses:admin');
+    Route::post('/kirimcatatan/{id}', [adminController::class, 'kirimcatatan'])->middleware('userAkses:admin');
+
+    // 
+
+    // Router Author
     Route::get('/author', [SesiController::class, 'index'])->middleware('userAkses:author');
 
-    // Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
-
-    Route::post('/submitartikel/{id}', [authorController::class, 'submitartikel']);
+    Route::post('/submitartikel/{id}', [authorController::class, 'submitartikel'])->middleware('userAkses:author');
     Route::get('/infoakun', [authorController::class, 'infoakun'])->middleware('userAkses:author');
     Route::get('/karyatulis', [authorController::class, 'karyatulis'])->middleware('userAkses:author');
 

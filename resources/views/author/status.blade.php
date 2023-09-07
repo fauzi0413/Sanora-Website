@@ -46,7 +46,7 @@
                         @elseif ($item->status_artikel == 'Ditolak')
                             <span class="btn btn-danger" style="cursor: default">{{ $item->status_artikel }}</span>
                             <br>
-                            <span class="text-danger">*<a type="button" class="text-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Catatan</a></span>
+                            <span class="text-danger">*<a type="button" class="text-danger" data-bs-toggle="modal" data-bs-target="#catatan{{ $item->id }}">Catatan</a></span>
                         @elseif ($item->status_artikel == 'Disimpan')
                             <span class="">Draft</span>
                         @endif
@@ -63,25 +63,24 @@
                         @endif
                     </td>
                 </tr>
+                
+                <!-- Modal Catatan -->
+                <div class="modal fade" id="catatan{{ $item->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Catatan Artikel Anda</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ $item->catatan }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </tbody>
     </table>
 </div>
-
-<!-- Modal Catatan -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Catatan Artikel Anda</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-      </div>
-    </div>
-  </div>
-  
 
 @endsection
