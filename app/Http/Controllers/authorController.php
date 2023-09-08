@@ -144,7 +144,6 @@ class authorController extends Controller
         $validatedData = $request->validate(
             [
                 'judul' => 'required|min:1|max:255',
-                // 'cuplikan' => 'required|min:1|max:70',
                 'gambar' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                 'isi' => 'required',
             ]
@@ -161,7 +160,6 @@ class authorController extends Controller
                 artikel::create([
                     'id_author' => Auth::user()->id,
                     'judul' => $request->judul,
-                    // 'cuplikan' => $request->cuplikan,
                     'gambar_artikel' => $image->hashName(),
                     'isi_artikel' => $request->isi,
                     'status_artikel' => 'Disimpan',
@@ -175,7 +173,6 @@ class authorController extends Controller
                 artikel::create([
                     'id_author' => Auth::user()->id,
                     'judul' => $request->judul,
-                    // 'cuplikan' => $request->cuplikan,
                     'gambar_artikel' => $image->hashName(),
                     'isi_artikel' => $request->isi,
                     'tgl_artikel' => Carbon::now(),
@@ -198,8 +195,7 @@ class authorController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'judul' => 'required|min:1|max:50',
-                // 'cuplikan' => 'required|min:1|max:70',
+                'judul' => 'required|min:1',
                 'gambar' => 'image|mimes:png,jpg,jpeg|max:2048',
                 'isi' => 'required',
             ]
@@ -218,7 +214,6 @@ class authorController extends Controller
 
                     $data->update([
                         'judul' => $request->judul,
-                        // 'cuplikan' => $request->cuplikan,
                         'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
                     ]);
@@ -226,7 +221,6 @@ class authorController extends Controller
                     $data = artikel::find($id);
                     $data->update([
                         'judul' => $request->judul,
-                        // 'cuplikan' => $request->cuplikan,
                         'isi_artikel' => $request->isi,
                     ]);
                 }
@@ -246,7 +240,6 @@ class authorController extends Controller
 
                     $data->update([
                         'judul' => $request->judul,
-                        // 'cuplikan' => $request->cuplikan,
                         'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
                         'status_artikel' => 'Menunggu',
@@ -255,7 +248,6 @@ class authorController extends Controller
                     $data = artikel::find($id);
                     $data->update([
                         'judul' => $request->judul,
-                        // 'cuplikan' => $request->cuplikan,
                         'isi_artikel' => $request->isi,
                         'status_artikel' => 'Menunggu',
                     ]);

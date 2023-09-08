@@ -15,7 +15,11 @@
 
     @foreach ($data as $datas)
         <div class="mb-3 d-flex">
-            <a href="/dataartikel" class="btn btn-sm btn-outline-danger fw-bold me-2">Kembali</a>
+            @if ($datas->status_artikel == 'Menunggu')
+                <a href="/dataartikel_menunggu" class="btn btn-sm btn-outline-danger fw-bold me-2">Kembali</a>
+            @else
+                <a href="/dataartikel_disetujui" class="btn btn-sm btn-outline-danger fw-bold me-2">Kembali</a>
+            @endif
             @if($datas->status_artikel == 'Menunggu')
                 <button type="button" class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Berikan Catatan Artikel

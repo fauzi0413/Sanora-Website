@@ -14,16 +14,41 @@
 @endif
 
     <div class="card bg-white border-0 shadow p-4" style="min-height: 70vh">
-        <div class="d-flex justify-content-between mb-3">
-            <h5 class="fw-bold">Data Akun {{ $status }}</h5>
-            <a href="/createakun" class="text-decoration-none btn btn-success">Tambah <i class="fa-solid fa-plus"></i></a>
+        <div class="row justify-content-between mb-3">
+            <h5 class="col-12 col-lg-6 fw-bold">Data Akun {{ $status }}</h5>
+            <div class="col-12 col-lg-6 d-flex">
+                @if ($status == 'Author')
+                    <form action="/dataauthor/search" method="get" class="col-7 me-2">
+                        <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari akun ..." aria-label="Search">
+                    </form>
+                @elseif ($status == 'Admin')
+                    <form action="/dataadmin/search" method="get" class="col-7 me-2">
+                        <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari akun ..." aria-label="Search">
+                    </form>
+                @else
+                    <form action="/dataakun/search" method="get" class="col-7 me-2">
+                        <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari akun ..." aria-label="Search">
+                    </form>
+                @endif
+                <div class="me-2">
+                    <a href="/createakun" class="text-decoration-none btn btn-sm btn-success d-none d-lg-block">Tambah <i class="fa-solid fa-plus"></i></a>
+                    <a href="/createakun" class="text-decoration-none btn btn-sm btn-success d-lg-none d-block"><i class="fa-solid fa-plus"></i></a>
+                </div>
+                <div class="">
+                    <a href="" class="text-decoration-none btn btn-sm btn-danger d-none d-lg-block">Laporan <i class="fa-solid fa-file-pdf"></i></a>
+                    <a href="" class="text-decoration-none btn btn-sm btn-danger d-lg-none d-block"><i class="fa-solid fa-file-pdf"></i></a>
+                </div>
+            </div>
         </div>
-        <table class="table table-bordered" style="background-color: red !important">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col" class="text-center">No</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
+                    @if ($status == '')
+                        <th scope="col">Role</th>
+                    @endif
                     <th scope="col" class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -35,9 +60,26 @@
                             <a type="button" class="fw-bold text-decoration-none" data-bs-toggle="modal" data-bs-target="#detailAkun{{ $datas->id }}">{{ $datas->name }}</a>
                         </td>
                         <td scope="col">{{ $datas->email }}</td>
+                        @if ($status == '')
+                        <td scope="col">
+                            @if ($datas->role == 'author')
+                                <span class="text-primary fw-bold">{{ $datas->role }}</span>
+                            @else
+                                <span class="text-danger fw-bold">{{ $datas->role }}</span>
+                            @endif
+                        </td>
+                        @endif
                         <td scope="col" class="text-center">
-                            <a href="/editakun/{{ $datas->id }}"><span class="text-dark"><i class="fa-regular fa-pen-to-square"></i></span></a>
-                            <a href="/hapusakun/{{ $datas->id }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="text-danger ms-lg-3"><i class="fa-regular fa-trash-can"></i></span></a>
+                            @if (empty($datas->email_verified_at))
+                                <form action="/verifikasiakun/{{ $datas->id }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <button type="submit" name="submit" class="btn btn-sm btn-warning text-white fw-bold" onclick="return confirm('Apakah anda yakin ingin memverifikasi akun tersebut?')">Verifikasi</button>
+                                </form>
+                            @else
+                                <a href="/editakun/{{ $datas->id }}"><span class="text-dark"><i class="fa-regular fa-pen-to-square"></i></span></a>
+                                <a href="/hapusakun/{{ $datas->id }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="text-danger ms-lg-3"><i class="fa-regular fa-trash-can"></i></span></a>
+                            @endif
                         </td>
                     </tr>
                     

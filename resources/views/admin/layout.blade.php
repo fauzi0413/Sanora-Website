@@ -22,7 +22,10 @@
                         <a class="nav-link collapsed fs-5 mb-3" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                             <i class="fa-solid fa-street-view me-2"></i> Data Akun<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
                         </a>
-                        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <a href="/dataakun" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>All</li>
+                            </a>
                             <a href="/dataauthor" class="text-decoration-none text-white">
                                 <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Author</li>
                             </a>
@@ -31,8 +34,22 @@
                             </a>
                         </ul>
                     </a>
-                    <a href="/dataartikel" class="text-decoration-none text-white">
-                        <li class="list-unstyled fs-5 mb-3"><i class="fa-regular fa-folder-open me-2"></i> Data Artikel</li>
+                    </a>
+                    <a href="/dataarikel" class="text-decoration-none text-white">
+                        <a class="nav-link collapsed fs-5 mb-3" data-bs-target="#artikel" data-bs-toggle="collapse" href="#">
+                            <i class="fa-regular fa-folder-open me-2"></i> Data Artikel<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
+                        </a>
+                        <ul id="artikel" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <a href="/dataartikel" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>All</li>
+                            </a>
+                            <a href="/dataartikel_menunggu" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Menunggu</li>
+                            </a>
+                            <a href="/dataartikel_disetujui" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Disetujui</li>
+                            </a>
+                        </ul>
                     </a>
                 </ul>
             </div>
@@ -63,10 +80,13 @@
                         <li class="list-unstyled fs-5 mb-3"><i class="fa-solid fa-chart-simple me-2"></i> Dashboard</li>
                     </a>
                     <a href="/dataakun" class="text-decoration-none text-white">
-                        <a class="nav-link collapsed fs-5 mb-3 text-white" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                        <a class="nav-link collapsed fs-5 mb-3 text-white" data-bs-target="#tables-akun" data-bs-toggle="collapse" href="#">
                             <i class="fa-solid fa-street-view me-2"></i> Data Akun<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
                         </a>
-                        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <ul id="tables-akun" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <a href="/dataakun" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>All</li>
+                            </a>
                             <a href="/dataauthor" class="text-decoration-none text-white">
                                 <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Author</li>
                             </a>
@@ -75,8 +95,21 @@
                             </a>
                         </ul>
                     </a>
-                    <a href="/dataartikel" class="text-decoration-none text-white">
-                        <li class="list-unstyled fs-5 mb-3"><i class="fa-regular fa-folder-open me-2"></i> Data Artikel</li>
+                    <a href="/dataarikel" class="text-decoration-none text-white">
+                        <a class="nav-link collapsed fs-5 mb-3 text-white" data-bs-target="#artikel" data-bs-toggle="collapse" href="#">
+                            <i class="fa-regular fa-folder-open me-2"></i> Data Artikel<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
+                        </a>
+                        <ul id="artikel" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <a href="/dataartikel" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>All</li>
+                            </a>
+                            <a href="/dataartikel_menunggu" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Menunggu</li>
+                            </a>
+                            <a href="/dataartikel_disetujui" class="text-decoration-none text-white">
+                                <li class="list-unstyled mb-3"><i class="fa-regular fa-circle me-2"></i></i>Disetujui</li>
+                            </a>
+                        </ul>
                     </a>
                 </ul>
             </div>

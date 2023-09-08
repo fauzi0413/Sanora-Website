@@ -14,6 +14,22 @@
 @endif
 
     <div class="card bg-white border-0 shadow p-4" style="min-height: 70vh">
+        <h5 class="col-12 col-lg-6 fw-bold">Data Artikel {{ $status }}</h5>
+        <div class="mb-3">
+            @if ($status == 'Menunggu')
+                <form action="/dataartikel/search" method="get" class="col-8 me-2 w-100">
+                    <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+                </form>
+            @elseif ($status == 'Disetujui')
+                <form action="/dataartikel_menunggu/search" method="get" class="col-8 me-2 w-100">
+                    <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+                </form>
+            @else
+                <form action="/dataartikel_disetujui/search" method="get" class="col-8 me-2 w-100">
+                    <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+                </form>
+            @endif
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>

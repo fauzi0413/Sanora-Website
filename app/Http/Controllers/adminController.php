@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\artikel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use Laravel\Ui\Presets\React;
 
 class adminController extends Controller
 {
     function index()
     {
-        return view('admin.index');
+        $author = User::where('role', 'author')->count();
+        $admin = User::where('role', 'admin')->count();
+        $artikel_confirm = artikel::where('status_artikel', 'Disetujui')->count();
+        $artikel_waiting = artikel::where('status_artikel', 'Menunggu')->count();
+
+        return view('admin.index', compact('author', 'admin', 'artikel_confirm', 'artikel_waiting'));
     }
 
     function infoakun()
@@ -88,6 +93,13 @@ class adminController extends Controller
         return redirect('/pengaturan-admin')->with('success', 'Profile berhasil diubah!!');
     }
 
+    function views_akun()
+    {
+        $data = User::get();
+        $status = '';
+        return view('admin.dataakun', compact('data', 'status'));
+    }
+
     function views_akun_author()
     {
         $data = User::where('role', 'author')->get();
@@ -102,11 +114,94 @@ class adminController extends Controller
         return view('admin.dataakun', compact('data', 'status'));
     }
 
+    function search_akun(Request $request)
+    {
+        $cari = $request->cari;
+        $data = User::where('name', 'like', "%" . $cari . "%")->get();
+        $status = '';
+        return view('admin.dataakun', compact('data', 'status'));
+    }
+
+    function search_akun_author(Request $request)
+    {
+        $cari = $request->cari;
+        $data = User::where('role', 'author')->where('name', 'like', "%" . $cari . "%")->get();
+        $status = 'Author';
+        return view('admin.dataakun', compact('data', 'status'));
+    }
+
+    function search_akun_admin(Request $request)
+    {
+        $cari = $request->cari;
+        $data = User::where('role', 'admin')->where('name', 'like', "%" . $cari . "%")->get();
+        $status = 'Admin';
+        return view('admin.dataakun', compact('data', 'status'));
+    }
+
+    function verifikasiakun($id)
+    {
+        $data = User::find($id);
+        $data->update([
+            'email_verified_at' => Carbon::now(),
+        ]);
+
+        $status = $data->role;
+        if ($status == 'author') {
+            return redirect('/dataauthor')->with('success', 'Akun Berhasil Diverifikasi!!');
+        } elseif ($status == 'admin') {
+            return redirect('/dataadmin')->with('success', 'Akun Berhasil Diverifikasi!!');
+        }
+    }
+
     function views_artikel()
     {
         $no = 1;
         $artikel = artikel::orderBy('updated_at', 'desc')->get();
-        return view('admin.dataartikel', compact('artikel', 'no'));
+        $status = '';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
+    }
+
+    function views_artikel_menunggu()
+    {
+        $no = 1;
+        $artikel = artikel::orderBy('updated_at', 'desc')->where('status_artikel', 'Menunggu')->get();
+        $status = 'Menunggu';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
+    }
+
+    function views_artikel_disetujui()
+    {
+        $no = 1;
+        $artikel = artikel::orderBy('updated_at', 'desc')->where('status_artikel', 'Disetujui')->get();
+        $status = 'Disetujui';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
+    }
+
+    function search_artikel(Request $request)
+    {
+        $cari = $request->cari;
+        $no = 1;
+        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->get();
+        $status = '';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
+    }
+
+    function search_artikel_menunggu(Request $request)
+    {
+        $cari = $request->cari;
+        $no = 1;
+        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Menunggu')->get();
+        $status = 'Menunggu';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
+    }
+
+    function search_artikel_disetujui(Request $request)
+    {
+        $cari = $request->cari;
+        $no = 1;
+        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Disetujui')->get();
+        $status = 'Disetujui';
+        return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
 
     function detail_artikel($id)
@@ -242,5 +337,25 @@ class adminController extends Controller
                 return redirect('/dataartikel')->with('success', 'Catatan Berhasil Diberikan!!');
                 break;
         }
+    }
+
+    function laporanakun()
+    {
+        $data = User::get();
+        $status = '';
+        return view('admin.laporanakun', compact('data', 'status'));
+    }
+
+    function generatepdf()
+    {
+        $data = User::get();
+        $status = '';
+
+        $pdf = PDF::loadView('admin.laporanakun', [
+            'data' => $data,
+            'status' => $status,
+        ]);
+
+        return $pdf->download('Laporanakun.pdf');
     }
 }

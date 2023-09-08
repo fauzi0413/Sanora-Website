@@ -66,9 +66,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/infoakun_admin', [adminController::class, 'infoakun'])->middleware('userAkses:admin');
 
+    Route::get('/dataakun', [adminController::class, 'views_akun'])->middleware('userAkses:admin');
     Route::get('/dataauthor', [adminController::class, 'views_akun_author'])->middleware('userAkses:admin');
     Route::get('/dataadmin', [adminController::class, 'views_akun_admin'])->middleware('userAkses:admin');
+    Route::get('/dataakun/search', [adminController::class, 'search_akun'])->middleware('userAkses:admin');
+    Route::get('/dataauthor/search', [adminController::class, 'search_akun_author'])->middleware('userAkses:admin');
+    Route::get('/dataadmin/search', [adminController::class, 'search_akun_admin'])->middleware('userAkses:admin');
+    Route::put('/verifikasiakun/{id}', [adminController::class, 'verifikasiakun'])->middleware('userAkses:admin');
+
     Route::get('/dataartikel', [adminController::class, 'views_artikel'])->middleware('userAkses:admin');
+    Route::get('/dataartikel_menunggu', [adminController::class, 'views_artikel_menunggu'])->middleware('userAkses:admin');
+    Route::get('/dataartikel_disetujui', [adminController::class, 'views_artikel_disetujui'])->middleware('userAkses:admin');
+    Route::get('/dataartikel/search', [adminController::class, 'search_artikel'])->middleware('userAkses:admin');
+    Route::get('/dataartikel_menunggu/search', [adminController::class, 'search_artikel_menunggu'])->middleware('userAkses:admin');
+    Route::get('/dataartikel_disetujui/search', [adminController::class, 'search_artikel_disetujui'])->middleware('userAkses:admin');
+
     Route::get('/detailartikel_admin/{id}', [adminController::class, 'detail_artikel'])->middleware('userAkses:admin');
     Route::get('/hapus_artikel/{id}', [authorController::class, 'hapus_artikel'])->middleware('userAkses:admin');
 
@@ -90,6 +102,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/submitartikel_admin/{id}', [adminController::class, 'submitartikel'])->middleware('userAkses:admin');
     Route::post('/kirimcatatan/{id}', [adminController::class, 'kirimcatatan'])->middleware('userAkses:admin');
+
+    Route::get('/laporanakun', [adminController::class, 'laporanakun'])->middleware('userAkses:admin');
+    Route::get('/generatepdf', [adminController::class, 'generatepdf'])->middleware('userAkses:admin');
 
     // 
 
