@@ -18,11 +18,6 @@
       @endif
     @endguest
     
-    {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> --}}
-    
-    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
     <div class="" id="navbarSupportedContent">
 
       <div class="d-flex ms-auto ">
@@ -44,16 +39,16 @@
                 <div class="dropdown-menu dropdown-menu-end bg-white" aria-labelledby="navbarDropdown">
 
                     @if (Auth::user()->role == 'author')
-                      <a class="dropdown-item" href="{{ '/infoakun' }}">Info Akun</a>
-                      <a class="dropdown-item" href="{{ '/karyatulis' }}">Karya Tulis</a>
-                      <a class="dropdown-item" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+                      <a class="dropdown-item" href="{{ '/infoakun' }}"><i class="fa-regular fa-user me-2"></i>Info Akun</a>
+                      <a class="dropdown-item" href="{{ '/karyatulis' }}"><i class="fa-regular fa-pen-to-square me-2"></i>Karya Tulis</a>
+                      <a class="dropdown-item" href="{{ '/pengaturan' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @elseif (Auth::user()->role == 'admin')
-                      <a class="dropdown-item" href="">Info Akun</a>
-                      <a class="dropdown-item" href="{{ '/pengaturan-admin' }}">Pengaturan Akun</a>
+                      <a class="dropdown-item" href="/infoakun_admin"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
+                      <a class="dropdown-item" href="{{ '/pengaturan-admin' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @endif
 
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Keluar
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -68,15 +63,15 @@
 
                   <div class="row px-5 py-3 text-center">
                     @if (Auth::user()->role == 'author')
-                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/infoakun' }}">Info Akun</a>
-                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/karyatulis' }}">Karya Tulis</a>
-                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/pengaturan' }}">Pengaturan Akun</a>
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/infoakun' }}"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/karyatulis' }}"><i class="fa-regular fa-pen-to-square me-2"></i>Karya Tulis</a>
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/pengaturan' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @elseif (Auth::user()->role == 'admin')
-                      <a class="dropdown-item mb-3" href="">Info Akun</a>
-                      <a class="dropdown-item mb-3" href="{{ '/pengaturan-admin' }}">Pengaturan Akun</a>
+                      <a class="dropdown-item mb-3" href="/infoakun_admin"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
+                      <a class="dropdown-item mb-3" href="{{ '/pengaturan-admin' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @endif
                     <a class="text-decoration-none mb-3 text-danger" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Keluar
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

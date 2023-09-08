@@ -1,8 +1,11 @@
-@extends('layouts.head')
+@extends('admin.layout')
 
 @section('title', 'Pengaturan Kata Sandi')
 
-@section('konten')
+@section('judul', 'Pengaturan Kata Sandi')
+
+@section('konten_admin')
+
 
 @if (session()->has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -11,8 +14,8 @@
 </div>
 @endif
 
-<div class="container py-5">
-    <div class="card p-5">
+<div class="">
+    <div class="card bg-white border-0 shadow p-5">
         <form action="/editpassword_admin" method="POST" enctype="multipart/form-data">
             @csrf
             @method("put")

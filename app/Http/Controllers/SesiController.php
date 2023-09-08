@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\artikel;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +16,15 @@ class SesiController extends Controller
         $news = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('status_artikel', 'Disetujui')->orderBy('updated_at', 'desc')->paginate(5);
         $recomendation = artikel::where('status_artikel', 'Disetujui')->orderBy('tayangan', 'desc')->orderBy('updated_at', 'desc')->limit(3)->get();
         return view('index', compact('news', 'recomendation'));
+    }
+
+    function search(Request $request)
+    {
+        $cari = $request->cari;
+
+        $news = artikel::join('users', 'artikels.id_author', '=', 'users.id')->select('artikels.*', 'users.name')->where('status_artikel', 'Disetujui')->where('judul', 'like', "%" . $cari . "%")->orderBy('updated_at', 'desc')->paginate(5);
+
+        return view('search', compact('news', 'cari'));
     }
 
     function loginview()
@@ -65,6 +75,8 @@ class SesiController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
 
         User::create($validatedData);
+
+        event(new Registered($validatedData));
 
         return redirect('/login')->with('success', 'Registrasi berhasil, silahkan login!');
     }

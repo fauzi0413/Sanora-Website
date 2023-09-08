@@ -26,12 +26,42 @@ class authorController extends Controller
     function karyatulis()
     {
         $id = Auth::user()->id;
+        $jumlah_artikel = artikel::where('id_author', $id)->where('status_artikel', 'Disetujui')->count();
         $data = artikel::where('id_author', $id)->where('status_artikel', 'Disetujui')->get();
         $artikel = $data->sortBy([
             ['tgl_artikel', 'desc'],
         ]);
 
-        return view('author.karyatulis', compact('artikel'));
+        return view('author.karyatulis', compact('artikel', 'jumlah_artikel'));
+    }
+
+    function searchartikel(Request $request)
+    {
+        $cari = $request->cari;
+
+        $id = Auth::user()->id;
+
+        $jumlah_artikel = artikel::where('id_author', $id)->where('status_artikel', 'Disetujui')->where('judul', 'like', "%" . $cari . "%")->count();
+        $data = artikel::where('id_author', $id)->where('status_artikel', 'Disetujui')->where('judul', 'like', "%" . $cari . "%")->get();
+        $artikel = $data->sortBy([
+            ['tgl_artikel', 'desc'],
+        ]);
+
+        return view('author.karyatulis', compact('artikel', 'cari', 'jumlah_artikel'));
+    }
+
+    function searchdraft(Request $request)
+    {
+        $cari = $request->cari;
+
+        $id = Auth::user()->id;
+
+        $data = artikel::where('id_author', $id)->where('status_artikel', 'Disimpan')->where('judul', 'like', "%" . $cari . "%")->get();
+        $draft = $data->sortBy([
+            ['tgl_artikel', 'desc'],
+        ]);
+
+        return view('author.draft', compact('draft'));
     }
 
     function pengaturan()
@@ -279,6 +309,20 @@ class authorController extends Controller
 
         return view('author.status', compact('status'));
     }
+
+    function searchstatus(Request $request)
+    {
+        $cari = $request->cari;
+
+        $id = Auth::user()->id;
+        $data = artikel::where('id_author', $id)->where('judul', 'like', "%" . $cari . "%")->get();
+        $status = $data->sortBy([
+            ['id', 'desc'],
+        ]);
+
+        return view('author.status', compact('status'));
+    }
+
 
     function pointku()
     {

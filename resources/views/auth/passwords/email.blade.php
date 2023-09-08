@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.head')
 
-@section('content')
-<div class="container">
+@section('title', 'Reset Password')
+
+@section('konten')
+<div class="container p-5" style="min-height: 70vh">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

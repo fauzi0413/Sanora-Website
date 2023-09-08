@@ -3,6 +3,9 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\authorController;
 use App\Http\Controllers\SesiController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +24,7 @@ Auth::routes();
 Route::get('/detailartikel/{id}', [SesiController::class, 'detail_artikel']);
 Route::get('/artikel/{id}', [SesiController::class, 'detail_artikel_tayangan']);
 Route::get('/iklan', [SesiController::class, 'iklan']);
+Route::get('/search', [SesiController::class, 'search']);
 
 // Route middleware guest digunakan untuk mengakses halaman apabila user tidak dalam keadaan login
 Route::middleware(['guest'])->group(function () {
@@ -35,10 +39,32 @@ Route::get('/home', function () {
     return redirect('/admin');
 });
 
+Auth::routes([
+    'verify' => true
+]);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 // Route middleware auth digunakan untuk mengakses halaman apabila user dalam keadaan login
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // Router Admin
     Route::get('/admin', [adminController::class, 'index'])->middleware('userAkses:admin');
+
+    Route::get('/infoakun_admin', [adminController::class, 'infoakun'])->middleware('userAkses:admin');
 
     Route::get('/dataauthor', [adminController::class, 'views_akun_author'])->middleware('userAkses:admin');
     Route::get('/dataadmin', [adminController::class, 'views_akun_admin'])->middleware('userAkses:admin');
@@ -92,7 +118,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/draft', [authorController::class, 'draft'])->middleware('userAkses:author');
     Route::get('/status', [authorController::class, 'status'])->middleware('userAkses:author');
-    Route::get('/pointku', [authorController::class, 'pointku'])->middleware('userAkses:author');
+
+    Route::get('/karyatulis/search', [authorController::class, 'searchartikel'])->middleware('userAkses:author');
+    Route::get('/draft/search', [authorController::class, 'searchdraft'])->middleware('userAkses:author');
+    Route::get('/status/search', [authorController::class, 'searchstatus'])->middleware('userAkses:author');
 
     Route::get('/logout', [SesiController::class, 'logout']);
 });

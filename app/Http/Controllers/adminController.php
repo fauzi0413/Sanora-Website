@@ -18,6 +18,11 @@ class adminController extends Controller
         return view('admin.index');
     }
 
+    function infoakun()
+    {
+        return view('admin.infoakun');
+    }
+
     function pengaturan()
     {
         return view('admin.pengaturanakun');

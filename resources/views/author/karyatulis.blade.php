@@ -40,6 +40,12 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12">
+            <div class="d-flex justify-content-between mb-3">
+                <p class="text-info fw-bold"><span>{{ $jumlah_artikel }}</span> Artikel</p>
+                <form action="/karyatulis/search" method="get" class="w-50">
+                    <input class="form-control" style="background-color: rgba(0, 0, 0, 0.1)" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+                </form>
+            </div>
             @forelse ($artikel as $post)
                 <div class="card mb-3 border-1 p-3">
                     <div class=""><h3 class="fw-bold m-0">{{ $post->judul }}</h3></div>

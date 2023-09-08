@@ -1,8 +1,10 @@
-@extends('layouts.head')
+@extends('admin.layout')
 
 @section('title', 'Pengaturan Akun')
 
-@section('konten')
+@section('judul', 'Pengaturan Akun')
+
+@section('konten_admin')
 
 @if (session()->has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -11,8 +13,8 @@
 </div>
 @endif
 
-<div class="container py-5">
-    <div class="card p-5">
+<div class="">
+    <div class="card bg-white border-0 shadow p-5">
         <div class="col-12 text-center">
             @if ( empty(Auth::user()->profile) )
                 <h1 class=""><i class="fa-regular fa-user bg-white shadow opacity-75 rounded-circle p-5"></i></h1>

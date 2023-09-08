@@ -5,9 +5,39 @@
 @section('konten')
     <div class="container py-5">
         <div class="px-5">
-            <form class="d-flex mb-5" role="search">
-                <input class="form-control" type="search" placeholder="Cari" aria-label="Search">
+            <form action="/search" method="get" class="d-flex mb-4">
+                <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
             </form>
+        </div>
+
+        <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('img/BANNER1.png') }}" class="d-block w-100 rounded-2" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('img/BANNER2.png') }}" class="d-block w-100 rounded-2" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('img/BANNER3.png') }}" class="d-block w-100 rounded-2" alt="...">
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
 
         <div class="card mb-5 border border-2" style="max-width: 70rem;">
@@ -54,7 +84,7 @@
                 
             <div class="card border border-2 mb-3">
                 <div class="row g-0">
-                    <div class="col-md-4 my-auto">
+                    <div class="col-md-4 my-auto text-center">
                         <img src="{{ asset('./storage/posts/'.$artikel->gambar_artikel) }}" class="img-fluid" alt="{{ $artikel->judul }}" style="height: 300px">
                     </div>
                     <div class="col-md-7">

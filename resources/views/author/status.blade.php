@@ -12,7 +12,12 @@
 @endif
 
 <div class="container py-5" style="min-height: 70vh">
-    <a href="/karyatulis" class="btn btn-outline-danger fw-bold mb-3">Kembali</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/karyatulis" class="btn btn-outline-danger fw-bold">Kembali</a>
+        <form action="/status/search" method="get" class="w-50">
+            <input class="form-control" style="background-color: rgba(0, 0, 0, 0.1)" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+        </form>
+    </div>
     <table class="table table-hover table-bordered">
         <thead class="table-light">
             <tr>

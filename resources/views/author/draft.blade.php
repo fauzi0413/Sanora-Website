@@ -12,7 +12,12 @@
 @endif
 
 <div class="container py-5">
-    <a href="/karyatulis" class="btn btn-outline-danger fw-bold mb-3">Kembali</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/karyatulis" class="btn btn-outline-danger fw-bold">Kembali</a>
+        <form action="/draft/search" method="get" class="w-50">
+            <input class="form-control" style="background-color: rgba(0, 0, 0, 0.1)" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+        </form>
+    </div>
     <h3 class="fw-bold pb-3">Draft</h3>
     <div class="row">
         @forelse ($draft as $item)
