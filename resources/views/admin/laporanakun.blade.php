@@ -1,25 +1,24 @@
-@extends('layouts.head')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sanora - @yield('title')</title>
+    <link rel="icon" href="{{ asset('logosaja.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-@section('title', 'Data Akun')
+    {{-- Icon Fontawesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-@section('konten')
-
-<style>
-    footer{
-        display: none;
-    }
-</style>
-
-@if (session()->has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-
+    {{-- Icon Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    {{-- @include('layouts.navbar') --}}
     <div class="card bg-white border-0 shadow p-4" style="min-height: 70vh">
         <div class="row justify-content-between mb-3">
-            <h5 class="col-12 col-lg-6 fw-bold">Data Akun {{ $status }}</h5>
+            <h5 class="col-12 col-lg-6 fw-bold">Data Akun {{ $status }} - {{ now() }}</h5>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -54,4 +53,5 @@
             </tbody>
         </table>
     </div>
-@endsection
+</body>
+</html>

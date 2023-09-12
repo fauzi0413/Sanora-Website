@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\artikel;
 use App\Models\User;
+// use App\Http\Controllers\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use PDO;
 
 class authorController extends Controller
 {
@@ -165,6 +165,8 @@ class authorController extends Controller
                     'status_artikel' => 'Disimpan',
                     'tayangan' => 0,
                 ]);
+                // Alert::success('Success!', 'Artikel Berhasil Disimpan, silahkan lihat kembali artikel di Draft');
+                // return redirect('/karyatulis');
                 return redirect('/karyatulis')->with('success', 'Artikel Berhasil Disimpan, silahkan lihat kembali artikel di Draft');
                 break;
 
@@ -216,12 +218,14 @@ class authorController extends Controller
                         'judul' => $request->judul,
                         'gambar_artikel' => $image->hashName(),
                         'isi_artikel' => $request->isi,
+                        'status_artikel' => 'Disimpan',
                     ]);
                 } else {
                     $data = artikel::find($id);
                     $data->update([
                         'judul' => $request->judul,
                         'isi_artikel' => $request->isi,
+                        'status_artikel' => 'Disimpan',
                     ]);
                 }
 

@@ -54,8 +54,8 @@
                             </button> --}}
 
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link text-decoration-none" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                <a class="btn btn-link text-info text-decoration-none" href="{{ route('password.request') }}">
+                                    {{ __('Lupa Kata Sandi?') }}
                                 </a>
                             @endif
                         </div>
@@ -110,8 +110,8 @@
                             </button> --}}
 
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link text-decoration-none" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                <a class="btn btn-link text-info text-decoration-none" href="{{ route('password.request') }}">
+                                    {{ __('Lupa Kata Sandi?') }}
                                 </a>
                             @endif
                         </div>

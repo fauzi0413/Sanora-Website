@@ -10,17 +10,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class adminController extends Controller
 {
     function index()
     {
+        $no = 1;
         $author = User::where('role', 'author')->count();
         $admin = User::where('role', 'admin')->count();
         $artikel_confirm = artikel::where('status_artikel', 'Disetujui')->count();
         $artikel_waiting = artikel::where('status_artikel', 'Menunggu')->count();
+        $tayangan_artikel = artikel::orderBy('tayangan', 'desc')->limit(3)->get();
 
-        return view('admin.index', compact('author', 'admin', 'artikel_confirm', 'artikel_waiting'));
+        return view('admin.index', compact('no', 'author', 'admin', 'artikel_confirm', 'artikel_waiting', 'tayangan_artikel'));
     }
 
     function infoakun()
@@ -95,21 +98,21 @@ class adminController extends Controller
 
     function views_akun()
     {
-        $data = User::get();
+        $data = User::orderBy('created_at', 'desc')->get();
         $status = '';
         return view('admin.dataakun', compact('data', 'status'));
     }
 
     function views_akun_author()
     {
-        $data = User::where('role', 'author')->get();
+        $data = User::orderBy('created_at', 'desc')->where('role', 'author')->get();
         $status = 'Author';
         return view('admin.dataakun', compact('data', 'status'));
     }
 
     function views_akun_admin()
     {
-        $data = User::where('role', 'admin')->get();
+        $data = User::orderBy('created_at', 'desc')->where('role', 'admin')->get();
         $status = 'Admin';
         return view('admin.dataakun', compact('data', 'status'));
     }
@@ -117,7 +120,7 @@ class adminController extends Controller
     function search_akun(Request $request)
     {
         $cari = $request->cari;
-        $data = User::where('name', 'like', "%" . $cari . "%")->get();
+        $data = User::orderBy('created_at', 'desc')->where('name', 'like', "%" . $cari . "%")->get();
         $status = '';
         return view('admin.dataakun', compact('data', 'status'));
     }
@@ -125,7 +128,7 @@ class adminController extends Controller
     function search_akun_author(Request $request)
     {
         $cari = $request->cari;
-        $data = User::where('role', 'author')->where('name', 'like', "%" . $cari . "%")->get();
+        $data = User::orderBy('created_at', 'desc')->where('role', 'author')->where('name', 'like', "%" . $cari . "%")->get();
         $status = 'Author';
         return view('admin.dataakun', compact('data', 'status'));
     }
@@ -133,7 +136,7 @@ class adminController extends Controller
     function search_akun_admin(Request $request)
     {
         $cari = $request->cari;
-        $data = User::where('role', 'admin')->where('name', 'like', "%" . $cari . "%")->get();
+        $data = User::orderBy('created_at', 'desc')->where('role', 'admin')->where('name', 'like', "%" . $cari . "%")->get();
         $status = 'Admin';
         return view('admin.dataakun', compact('data', 'status'));
     }
@@ -156,7 +159,7 @@ class adminController extends Controller
     function views_artikel()
     {
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->get();
         $status = '';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -164,7 +167,7 @@ class adminController extends Controller
     function views_artikel_menunggu()
     {
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->where('status_artikel', 'Menunggu')->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->where('status_artikel', 'Menunggu')->get();
         $status = 'Menunggu';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -172,7 +175,7 @@ class adminController extends Controller
     function views_artikel_disetujui()
     {
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->where('status_artikel', 'Disetujui')->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->where('status_artikel', 'Disetujui')->get();
         $status = 'Disetujui';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -181,7 +184,7 @@ class adminController extends Controller
     {
         $cari = $request->cari;
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->get();
         $status = '';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -190,7 +193,7 @@ class adminController extends Controller
     {
         $cari = $request->cari;
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Menunggu')->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Menunggu')->get();
         $status = 'Menunggu';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -199,7 +202,7 @@ class adminController extends Controller
     {
         $cari = $request->cari;
         $no = 1;
-        $artikel = artikel::orderBy('updated_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Disetujui')->get();
+        $artikel = artikel::orderBy('created_at', 'desc')->where('judul', 'like', "%" . $cari . "%")->where('status_artikel', 'Disetujui')->get();
         $status = 'Disetujui';
         return view('admin.dataartikel', compact('artikel', 'no', 'status'));
     }
@@ -346,16 +349,59 @@ class adminController extends Controller
         return view('admin.laporanakun', compact('data', 'status'));
     }
 
+    function laporanakun_author()
+    {
+        $data = User::where('role', 'author')->get();
+        $status = 'Author';
+        return view('admin.laporanakun', compact('data', 'status'));
+    }
+
+    function laporanakun_admin()
+    {
+        $data = User::where('role', 'admin')->get();
+        $status = 'Admin';
+        return view('admin.laporanakun', compact('data', 'status'));
+    }
+
     function generatepdf()
     {
-        $data = User::get();
+        $data = User::all();
         $status = '';
 
-        $pdf = PDF::loadView('admin.laporanakun', [
+        $pdf = Pdf::loadView('admin.laporanakun', [
             'data' => $data,
             'status' => $status,
         ]);
+        $pdf->setPaper('A4', 'portrait');
 
-        return $pdf->download('Laporanakun.pdf');
+        return $pdf->download('Laporan Akun - ' . now() . '.pdf');
+    }
+
+    function generatepdf_author()
+    {
+        $data = User::where('role', 'author')->get();
+        $status = 'Author';
+
+        $pdf = Pdf::loadView('admin.laporanakun', [
+            'data' => $data,
+            'status' => $status,
+        ]);
+        $pdf->setPaper('A4', 'portrait');
+
+        return $pdf->download('Laporan Akun Author - ' . now() . '.pdf');
+    }
+
+    function generatepdf_admin()
+    {
+        $data = User::where('role', 'admin')->get();
+        $status = 'Admin';
+
+        $pdf = Pdf::loadView('admin.laporanakun', [
+            'data' => $data,
+            'status' => $status,
+        ]);
+        $pdf->setPaper('A4', 'portrait');
+
+        return $pdf->download('Laporan Akun Admin - ' . now() . '.pdf');
     }
 }

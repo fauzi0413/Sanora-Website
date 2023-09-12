@@ -95,4 +95,59 @@
         </div>
 
     </div>
+
+    <div class="p-3">
+        <h3 class="fw-bold">Data Tayangan Artikel Teratas</h3>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <table class="table table-bordered">
+            <thead class="table-info">
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Tanggal Artikel</th>
+                    <th>Tayangan</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach ($tayangan_artikel as $tayangan)
+                    <tr>
+                        <th>{{ $no++ }}</th>
+                        <td>{{ $tayangan->judul }}</td>
+                        <td>{{ \Carbon\Carbon::parse($tayangan->created_at)->translatedFormat('l, d F Y') }}</td>
+                        <td>{{ $tayangan->tayangan }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: ['1', '2', '3'],
+        datasets: [{
+            label: 'Data tayangan artikel',
+            data: [
+                @foreach ($tayangan_artikel as $data)
+                    {{ $data->tayangan }},
+                @endforeach
+            ],
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });
+    </script>
 @endsection

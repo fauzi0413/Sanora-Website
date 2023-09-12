@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-12 d-flex justify-content-center mb-3">
-            <img src="{{ asset('./storage/posts/'.$datas->gambar_artikel) }}" class="" alt="Gambar {{ $datas->judul }}">
+            <img src="{{ asset('./storage/posts/'.$datas->gambar_artikel) }}" class="w-100" alt="Gambar {{ $datas->judul }}">
         </div>
         <div class="">
             <h1 class="fw-bold">{{ $datas->judul }}</h1>

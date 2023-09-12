@@ -39,10 +39,12 @@
                 <div class="dropdown-menu dropdown-menu-end bg-white" aria-labelledby="navbarDropdown">
 
                     @if (Auth::user()->role == 'author')
+                      <a class="dropdown-item" href="{{ '/' }}"><i class="fa-solid fa-house me-2"></i>Beranda</a>
                       <a class="dropdown-item" href="{{ '/infoakun' }}"><i class="fa-regular fa-user me-2"></i>Info Akun</a>
                       <a class="dropdown-item" href="{{ '/karyatulis' }}"><i class="fa-regular fa-pen-to-square me-2"></i>Karya Tulis</a>
                       <a class="dropdown-item" href="{{ '/pengaturan' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @elseif (Auth::user()->role == 'admin')
+                      <a class="dropdown-item" href="{{ '/' }}"><i class="fa-solid fa-chart-simple me-2"></i>Dashboard</a>
                       <a class="dropdown-item" href="/infoakun_admin"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
                       <a class="dropdown-item" href="{{ '/pengaturan-admin' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @endif
@@ -63,10 +65,12 @@
 
                   <div class="row px-5 py-3 text-center">
                     @if (Auth::user()->role == 'author')
+                      <a class="text-decoration-none mb-3 text-dark" href="{{ '/' }}"><i class="fa-solid fa-house me-2"></i>Beranda</a>
                       <a class="text-decoration-none mb-3 text-dark" href="{{ '/infoakun' }}"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
                       <a class="text-decoration-none mb-3 text-dark" href="{{ '/karyatulis' }}"><i class="fa-regular fa-pen-to-square me-2"></i>Karya Tulis</a>
                       <a class="text-decoration-none mb-3 text-dark" href="{{ '/pengaturan' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @elseif (Auth::user()->role == 'admin')
+                      <a class="dropdown-item mb-3" href="{{ '/' }}"><i class="fa-solid fa-chart-simple me-2"></i>Dashboard</a>
                       <a class="dropdown-item mb-3" href="/infoakun_admin"><i class="fa-regular fa-user me-2"></i> Info Akun</a>
                       <a class="dropdown-item mb-3" href="{{ '/pengaturan-admin' }}"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a>
                     @endif

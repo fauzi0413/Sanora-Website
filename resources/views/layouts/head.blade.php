@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
+    @include('sweetalert::alert')
     @include('layouts.navbar')
     @yield('konten')
     @include('layouts.footer')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\artikel;
 use App\Models\User;
+use App\Http\Controllers\Alert as Alert;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,8 +78,9 @@ class SesiController extends Controller
         User::create($validatedData);
 
         event(new Registered($validatedData));
-
-        return redirect('/login')->with('success', 'Registrasi berhasil, silahkan login!');
+        Alert::success('Success!', 'Registrasi berhasil, silahkan login!');
+        // return redirect('/login')->with('success', 'Registrasi berhasil, silahkan login!');
+        return redirect('/login');
     }
 
     function logout()

@@ -4,17 +4,20 @@
 
 @section('konten')
     <div class="container py-5">
-        <div class="px-5">
+        <div class="">
             <form action="/search" method="get" class="d-flex mb-4">
                 <input class="form-control" type="text" name="cari" value="{{ old('cari') }}"  placeholder="Cari artikel ..." aria-label="Search">
+                <button type="submit" class="btn btn-info text-white">Cari</button>
             </form>
         </div>
 
         <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <div class="d-none d-lg-block">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
             </div>
             
             <div class="carousel-inner">
@@ -84,8 +87,8 @@
                 
             <div class="card border border-2 mb-3">
                 <div class="row g-0">
-                    <div class="col-md-4 my-auto text-center">
-                        <img src="{{ asset('./storage/posts/'.$artikel->gambar_artikel) }}" class="img-fluid" alt="{{ $artikel->judul }}" style="height: 300px">
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('./storage/posts/'.$artikel->gambar_artikel) }}" class="img-fluid" alt="{{ $artikel->judul }}">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">

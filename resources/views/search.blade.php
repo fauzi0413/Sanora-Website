@@ -4,9 +4,10 @@
 
 @section('konten')
     <div class="container py-5">
-        <div class="px-5">
+        <div class="">
             <form action="/search" method="get" class="d-flex mb-5">
                 <input class="form-control" type="text" name="cari" value="{{ $cari }}" placeholder="Cari artikel ..." aria-label="Search">
+                <button type="submit" class="btn btn-info text-white">Cari</button>
             </form>
         </div>
 

@@ -25,7 +25,7 @@
     
         
     <div class="col-12 d-flex justify-content-center mb-3">
-        <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" class="" alt="Gambar {{ $item->judul }}">
+        <img src="{{ asset('./storage/posts/'.$item->gambar_artikel) }}" class="w-100" alt="Gambar {{ $item->judul }}">
     </div>
 
     <div class="">

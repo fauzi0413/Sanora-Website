@@ -104,7 +104,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/kirimcatatan/{id}', [adminController::class, 'kirimcatatan'])->middleware('userAkses:admin');
 
     Route::get('/laporanakun', [adminController::class, 'laporanakun'])->middleware('userAkses:admin');
+    Route::get('/laporanakun_author', [adminController::class, 'laporanakun_author'])->middleware('userAkses:admin');
+    Route::get('/laporanakun_admin', [adminController::class, 'laporanakun_admin'])->middleware('userAkses:admin');
     Route::get('/generatepdf', [adminController::class, 'generatepdf'])->middleware('userAkses:admin');
+    Route::get('/generatepdfauthor', [adminController::class, 'generatepdf_author'])->middleware('userAkses:admin');
+    Route::get('/generatepdfadmin', [adminController::class, 'generatepdf_admin'])->middleware('userAkses:admin');
 
     // 
 

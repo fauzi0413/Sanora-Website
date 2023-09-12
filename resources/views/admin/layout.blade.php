@@ -35,7 +35,7 @@
                         </ul>
                     </a>
                     </a>
-                    <a href="/dataarikel" class="text-decoration-none text-white">
+                    <a href="/dataartikel" class="text-decoration-none text-white">
                         <a class="nav-link collapsed fs-5 mb-3" data-bs-target="#artikel" data-bs-toggle="collapse" href="#">
                             <i class="fa-regular fa-folder-open me-2"></i> Data Artikel<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
                         </a>
@@ -95,7 +95,7 @@
                             </a>
                         </ul>
                     </a>
-                    <a href="/dataarikel" class="text-decoration-none text-white">
+                    <a href="/dataartikel" class="text-decoration-none text-white">
                         <a class="nav-link collapsed fs-5 mb-3 text-white" data-bs-target="#artikel" data-bs-toggle="collapse" href="#">
                             <i class="fa-regular fa-folder-open me-2"></i> Data Artikel<i class="fa-solid fa-chevron-down ms-3 fs-6"></i>
                         </a>
